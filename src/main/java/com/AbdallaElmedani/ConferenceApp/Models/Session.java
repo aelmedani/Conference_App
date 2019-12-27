@@ -1,8 +1,12 @@
 package com.AbdallaElmedani.ConferenceApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity(name = "sessions")
 public class Session {
 

@@ -1,5 +1,6 @@
 package com.AbdallaElmedani.ConferenceApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Speaker {
     private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers")
+    @JsonIgnore
     private List<Session> session;
 
     public List<Session> getSession() {
