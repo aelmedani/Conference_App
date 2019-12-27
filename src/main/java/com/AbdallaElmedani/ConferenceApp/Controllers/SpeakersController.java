@@ -18,15 +18,15 @@ public class SpeakersController {
     private SpeakerRepository speakerRepository;
 
     @GetMapping
-    public List<Speaker> list()
-    {
+    public List<Speaker> list() {
         return speakerRepository.findAll();
     }
 
     @GetMapping
     @RequestMapping("{id}")
-    public Speaker get(@PathVariable Long id)
-    {
+    public Speaker get(@PathVariable Long id) {
         return speakerRepository.getOne(id);
     }
+
+
 }
