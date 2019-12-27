@@ -1,9 +1,8 @@
 package com.AbdallaElmedani.ConferenceApp.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Type;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "speakers")
 public class Speaker {
@@ -20,6 +19,29 @@ public class Speaker {
 
     public Speaker() {
 
+    }
+
+    @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
+    private byte[] speaker_photo;
+
+    @ManyToMany(mappedBy = "speakers")
+    private List<Session> session;
+
+    public List<Session> getSession() {
+        return session;
+    }
+
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
+    }
+
+    public void setSpeaker_photo(byte[] speaker_photo) {
+        this.speaker_photo = speaker_photo;
+    }
+
+    public void setSession(List<Session> session) {
+        this.session = session;
     }
 
     public Long getSpeaker_id() {
