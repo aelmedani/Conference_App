@@ -2,6 +2,7 @@ package com.AbdallaElmedani.ConferenceApp.Controllers;
 
 import com.AbdallaElmedani.ConferenceApp.Models.Speaker;
 import com.AbdallaElmedani.ConferenceApp.Repositories.SpeakerRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +27,17 @@ public class SpeakersController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable Long id)
-    {
+    public void delete(@PathVariable Long id) {
         // Check for children files as well.
         speakerRepository.deleteById(id);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker) {
+        Speaker existingSpeaker = speakerRepository.getOne(id);
+        BeanUtils.copyProperties(speaker, existingSpeaker, "speaker_id");
+        return speakerRepository.saveAndFlush(existingSpeaker);
+
     }
 
 }
