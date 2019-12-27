@@ -21,17 +21,21 @@ public class SessionsController {
     }
 
     @GetMapping
-    @RequestMapping ("{id}")
+    @RequestMapping("{id}")
     public Session get(@PathVariable Long id) {
         return sessionRepository.getOne(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Session create(@RequestBody final Session session)
-    {
+    public Session create(@RequestBody final Session session) {
         return sessionRepository.saveAndFlush(session);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id) {
+        // Also need to check for children records.
+        sessionRepository.deleteById(id);
+    }
 
 }
