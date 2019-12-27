@@ -2,6 +2,7 @@ package com.AbdallaElmedani.ConferenceApp.Controllers;
 
 import com.AbdallaElmedani.ConferenceApp.Models.Session;
 import com.AbdallaElmedani.ConferenceApp.Repositories.SessionRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,14 @@ public class SessionsController {
         // Also need to check for children records.
         sessionRepository.deleteById(id);
     }
+
+    @RequestMapping(value = "{id}" , method = RequestMethod.PUT)
+    public Session update(@PathVariable Long id, @RequestBody Session session)
+    {
+        Session existingSession = sessionRepository.getOne(id);
+        BeanUtils.copyProperties(session, existingSession, "session_id");
+        return sessionRepository.saveAndFlush(existingSession);
+    }
+
 
 }
