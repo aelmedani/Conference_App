@@ -3,10 +3,7 @@ package com.AbdallaElmedani.ConferenceApp.Controllers;
 import com.AbdallaElmedani.ConferenceApp.Models.Speaker;
 import com.AbdallaElmedani.ConferenceApp.Repositories.SpeakerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,11 @@ public class SpeakersController {
         return speakerRepository.getOne(id);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Long id)
+    {
+        // Check for children files as well.
+        speakerRepository.deleteById(id);
+    }
 
 }
